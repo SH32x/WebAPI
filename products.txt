@@ -1,0 +1,4 @@
+1,Product A,10.99,Type 1,https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f
+2,Product B,15.49,Type 2,https://images.unsplash.com/photo-1567306226416-28f0efdc88ce
+3,Product C,8.99,Type 3,https://unsplash.com/photos/gold-and-silver-colored-pendant-necklace-TxCbfMc854c
+stx3,test,3.59,food,https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphoto%2Fclose-up-of-a-fresh-yellow-pear-with-clipping-path-gm183387755-15702220&psig=AOvVaw1V0ZqxpD1MJVTTvK4PyUNG&ust=1729712454305000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCICeypTfookDFQAAAAAdAAAAABAE

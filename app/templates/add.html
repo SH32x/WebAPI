@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Product</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>Add a New Product</h1>
+        <a href="{{ url_for('index') }}" class="back-button"
+          >Back to Products</a
+        >
+      </div>
+    </header>
+    <main>
+      <form action="{{ url_for('add') }}" method="post">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required /><br />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /><br />
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required /><br />
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required /><br />
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" name="image" required /><br />
+        <input type="submit" value="Add Product" />
+      </form>
+    </main>
+    <footer>
+      <p>&copy; 2024 SOFE Studio, SH32x, add.html.</p>
+    </footer>
+  </body>
+</html>

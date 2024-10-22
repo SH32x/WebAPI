@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Online Shopping</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>Online Shopping</h1>
+        <a href="{{ url_for('add') }}" class="add-product-button"
+          >Add New Product</a
+        >
+      </div>
+    </header>
+    <main>
+      <div class="product-list">
+        {% for product in products %}
+        <div class="product">
+          <img src="{{ product.image }}" alt="{{ product.name }}" />
+          <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="price">Price: ${{ product.price }}</p>
+            <p class="type">Type: {{ product.type }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 SOFE Studio, SH32x.</p>
+    </footer>
+  </body>
+</html>

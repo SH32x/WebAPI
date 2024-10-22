@@ -5,5 +5,6 @@ runtime: python39
 env_variables:
   DATABASE_URL: >
     mysql+pymysql://$(DB_USER):$(DB_PASSWORD)@/$(DB_NAME)?unix_socket=/cloudsql/webapi-439022:northamerica-northeast2:t345db
+  PYTHON_ENV: 'development'
 
-entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -b :$PORT runpoint:app
