@@ -7,9 +7,6 @@ env_variables:
   FLASK_ENV: 'production'
   FLASK_DEBUG: '0'
   SECRET_KEY: 'SECRET_KEY'  
-  DATABASE_URL: >-
-    mysql+pymysql://$(DB_USER):$(DB_PASSWORD)@/$(DB_NAME)
-    ?unix_socket=/cloudsql/webapi-439022:northamerica-northeast2:t345db
 
 instance_class: F1
 
@@ -24,5 +21,5 @@ handlers:
   static_dir: app/static
 - url: /.*
   script: auto
-  secure: always  # Enforces HTTPS
+  secure: always
 
