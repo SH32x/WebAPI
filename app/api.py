@@ -1,30 +1,19 @@
 # app/api.py
+# Sets up CRUD API logic, including endpoints and authorization
 from flask import Blueprint, request, jsonify
 from app.models import db, Product, User, token_required
 
 api = Blueprint('api', __name__)
 
-@api.route('/auth/register', methods=['POST'])
-def register():
-    """Register a new API user"""
-    data = request.get_json()
-    
-    if not data or not data.get('username') or not data.get('password'):
-        return jsonify({'message': 'Missing required fields'}), 400
-        
-    if User.query.filter_by(username=data['username']).first():
-        return jsonify({'message': 'Username already exists'}), 400
-        
-    user = User(username=data['username'])
-    user.set_password(data['password'])
-    db.session.add(user)
-    db.session.commit()
-    
-    return jsonify({'message': 'User created successfully'}), 201
+def validate_product_data(data, required_fields):
+    if not data:
+        return False, 'No data provided'
+    if not all(key in data for key in required_fields):
+        return False, 'Missing required fields'
+    return True, None
 
 @api.route('/auth/login', methods=['POST'])
 def login():
-    """Login and receive authentication token"""
     data = request.get_json()
     
     if not data or not data.get('username') or not data.get('password'):
@@ -39,7 +28,7 @@ def login():
 
 @api.route('/products', methods=['GET'])
 @token_required
-def get_products(current_user):
+def get_products(_):
     """Get all products"""
     products = Product.query.all()
     return jsonify([{
@@ -52,7 +41,7 @@ def get_products(current_user):
 
 @api.route('/products/<product_id>', methods=['GET'])
 @token_required
-def get_product(current_user, product_id):
+def get_product(_, product_id):
     """Get a specific product"""
     product = Product.query.get_or_404(product_id)
     return jsonify({
@@ -65,12 +54,12 @@ def get_product(current_user, product_id):
 
 @api.route('/products', methods=['POST'])
 @token_required
-def create_product(current_user):
+def create_product(_):
     """Create a new product"""
     data = request.get_json()
-    
-    if not all(key in data for key in ['id', 'name', 'price', 'type', 'image']):
-        return jsonify({'message': 'Missing required fields'}), 400
+    valid, error = validate_product_data(data, ['id', 'name', 'price', 'type', 'image'])
+    if not valid:
+        return jsonify({'message': error}), 400
         
     product = Product(**data)
     db.session.add(product)
@@ -80,11 +69,14 @@ def create_product(current_user):
 
 @api.route('/products/<product_id>', methods=['PUT'])
 @token_required
-def update_product(current_user, product_id):
+def update_product(_, product_id):
     """Update an existing product"""
     product = Product.query.get_or_404(product_id)
     data = request.get_json()
     
+    if not data:
+        return jsonify({'message': 'No update data provided'}), 400
+        
     for key in ['name', 'price', 'type', 'image']:
         if key in data:
             setattr(product, key, data[key])
@@ -94,7 +86,7 @@ def update_product(current_user, product_id):
 
 @api.route('/products/<product_id>', methods=['DELETE'])
 @token_required
-def delete_product(current_user, product_id):
+def delete_product(_, product_id):
     """Delete a product"""
     product = Product.query.get_or_404(product_id)
     db.session.delete(product)

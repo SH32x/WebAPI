@@ -1,8 +1,5 @@
-# Handles users and authentication, contains classes to represent users
-# Contains variables for each class, including id, passwords, credentials
-# Potentially has additional classes for departments, roles, etc. 
-
 # app/models.py
+# Handles database logic
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
@@ -33,7 +30,7 @@ class User(db.Model):
         return token
 
 class Product(db.Model):
-    """Product model for database operations"""
+    # Database
     id = db.Column(db.String(64), primary_key=True)
     name = db.Column(db.String(128), nullable=False)
     price = db.Column(db.Float, nullable=False)
@@ -49,35 +46,34 @@ def token_required(f):
             token = request.headers['Authorization'].split(" ")[1]
         
         if not token:
-            return jsonify({'message': 'Token is missing'}), 401
+            return jsonify({'message': 'Missing Token!'}), 401
             
         try:
             data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
             current_user = User.query.get(data['user_id'])
         except:
-            return jsonify({'message': 'Token is invalid'}), 401
+            return jsonify({'message': 'Invalid token!'}), 401
 
         return f(current_user, *args, **kwargs)
     return decorated
 
 def init_db():
-    """Initialize database with sample data if empty"""
     db.create_all()
     
     if Product.query.count() == 0:
         sample_products = [
             {
                 'id': '1',
-                'name': 'Product A',
-                'price': 10.99,
-                'type': 'Type 1',
+                'name': 'Camera',
+                'price': 21.99,
+                'type': 'Tech',
                 'image': 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f'
             },
             {
                 'id': '2',
-                'name': 'Product B',
-                'price': 15.49,
-                'type': 'Type 2',
+                'name': 'Apples',
+                'price': 3.49,
+                'type': 'Fruit',
                 'image': 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce'
             }
         ]

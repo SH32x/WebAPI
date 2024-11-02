@@ -1,8 +1,16 @@
 # config.py
+# Handles secretmanager integration from gcloud
+# Note: When deploying yourself, replace the following values:
+# project_id="webapi-439022" with your own project's id
+# access_secret('db-user') with the name of the defined secret in your project's Secret Manager
+# access_secret('db-password') with the name of the defined secret in your project's Secret Manager
+# access_secret('db-name') with the name of the defined secret in your project's Secret Manager
+# access_secret('secret_key') with the name of the defined secret in your project's Secret Manager
+# '?unix_socket=/cloudsql/webapi-439022:northamerica-northeast2:t345db' with whatever the socket link for your DB instance is
+
 from google.cloud import secretmanager
 
 def access_secret(secret_id, project_id="webapi-439022"):
-    """Access secret from Secret Manager"""
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/{project_id}/secrets/{secret_id}/versions/latest"
     try:
@@ -12,7 +20,6 @@ def access_secret(secret_id, project_id="webapi-439022"):
         raise RuntimeError(f"Failed to access required secret: {secret_id}")
 
 class Config:
-    """Configuration settings with Secret Manager authentication"""
     # Verifies authentication with the secret key
     SECRET_KEY = access_secret('secret_key')
     if not SECRET_KEY:

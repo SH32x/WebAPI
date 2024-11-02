@@ -166,3 +166,41 @@ footer {
 .login-button:hover {
     background-color: #0056b3;
 }
+
+.admin-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}

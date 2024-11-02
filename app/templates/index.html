@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Online Shopping</title>
+    <title>Shop Webpage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
     <header>
       <div class="header-content">
-        <h1>Online Shopping</h1>
+        <h1>Shop Webpage</h1>
         {% if session.get('is_admin') %}
           <a href="{{ url_for('add') }}" class="add-product-button">Add New Product</a>
         {% else %}
@@ -25,6 +25,14 @@
             <h2>{{ product.name }}</h2>
             <p class="price">Price: ${{ product.price }}</p>
             <p class="type">Type: {{ product.type }}</p>
+            {% if session.get('is_admin') %}
+            <div class="admin-controls">
+              <a href="{{ url_for('edit', product_id=product.id) }}" class="edit-button">Edit</a>
+              <form action="{{ url_for('delete', product_id=product.id) }}" method="post" class="delete-form">
+                <button type="submit" class="delete-button" onclick="return confirm('Confirm Deletion?')">Delete</button>
+              </form>
+            </div>
+            {% endif %}
           </div>
         </div>
         {% endfor %}
