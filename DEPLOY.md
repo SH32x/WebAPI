@@ -56,8 +56,11 @@ gcloud sql users create db-user \
 ## Secret Manager Setup
 
 ### 1. Create Required Secrets
-The actual values can be anything, but the names of the secrets should correspond to 'secret_key', 'db-user', etc., if you
-wish to use different values make sure to change the references in 'config.py' as well.
+The names of the secrets should correspond to 'secret_key', 'db-user', etc., if you
+wish to use different names make sure to change the references in 'config.py' as well.
+
+Make sure that "db-user-value", "db-password-value, and "db-name-value" correspond to the actual name
+and credentials of your cloud database.
 ```bash
 # Create secrets
 gcloud secrets create secret_key --replication-policy="automatic"

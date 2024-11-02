@@ -15,4 +15,4 @@ All API endpoints except the login require Admin token authentication, which is 
 | `/products/<product_id>` | GET | Get single product | None | Displays one item | `"Product not found"` |
 | `/products` | POST | Create new product | Form with "id", "name", "price", "type", "image" | `"Product created successfully"` | `"Missing required fields"` |
 | `/products/<product_id>` | PUT | Update product | Form with "name", "price", "type", "image" | `"Product updated successfully"` | `"Product not found"` |
-| `/products/<product_id>` | DELETE | Delete product | None | `"message": "Product deleted successfully"` | `"message": "Product not found"` |
+| `/products/<product_id>` | DELETE | Delete product | None | `"Product deleted successfully"` | `"Product not found"` |
