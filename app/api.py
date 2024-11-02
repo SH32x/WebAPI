@@ -72,13 +72,7 @@ def create_product(current_user):
     if not all(key in data for key in ['id', 'name', 'price', 'type', 'image']):
         return jsonify({'message': 'Missing required fields'}), 400
         
-    product = Product(
-        id=data['id'],
-        name=data['name'],
-        price=data['price'],
-        type=data['type'],
-        image=data['image']
-    )
+    product = Product(**data)
     db.session.add(product)
     db.session.commit()
     
@@ -91,15 +85,10 @@ def update_product(current_user, product_id):
     product = Product.query.get_or_404(product_id)
     data = request.get_json()
     
-    if 'name' in data:
-        product.name = data['name']
-    if 'price' in data:
-        product.price = data['price']
-    if 'type' in data:
-        product.type = data['type']
-    if 'image' in data:
-        product.image = data['image']
-        
+    for key in ['name', 'price', 'type', 'image']:
+        if key in data:
+            setattr(product, key, data[key])
+            
     db.session.commit()
     return jsonify({'message': 'Product updated successfully'}), 200
 

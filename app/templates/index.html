@@ -3,18 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>Online Shopping</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
     <header>
       <div class="header-content">
         <h1>Online Shopping</h1>
-        <a href="{{ url_for('add') }}" class="add-product-button"
-          >Add New Product</a
-        >
+        {% if session.get('is_admin') %}
+          <a href="{{ url_for('add') }}" class="add-product-button">Add New Product</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="login-button">Login</a>
+        {% endif %}
       </div>
     </header>
     <main>
