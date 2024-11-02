@@ -1,12 +1,14 @@
 # config.py
 # Handles secretmanager integration from gcloud
-# Note: When deploying yourself, replace the following values:
-# project_id="webapi-439022" with your own project's id
-# access_secret('db-user') with the name of the defined secret in your project's Secret Manager
-# access_secret('db-password') with the name of the defined secret in your project's Secret Manager
-# access_secret('db-name') with the name of the defined secret in your project's Secret Manager
-# access_secret('secret_key') with the name of the defined secret in your project's Secret Manager
-# '?unix_socket=/cloudsql/webapi-439022:northamerica-northeast2:t345db' with whatever the socket link for your DB instance is
+#
+# Note: When deploying yourself replace the following values:
+#
+# project_id="webapi-439022" with your own project's id,
+# '?unix_socket=/cloudsql/webapi-439022:northamerica-northeast2:t345db' with 
+# your own DB instance socket name
+#
+# Make sure 'db-name', 'db-password', 'db-user' and 'secret_key' are
+# defined in your project's Secret Manager, and are referenced correctly
 
 from google.cloud import secretmanager
 

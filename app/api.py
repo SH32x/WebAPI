@@ -1,5 +1,5 @@
 # app/api.py
-# Sets up CRUD API logic, including endpoints and authorization
+# Sets up CRUD API logic, including endpoints, request formats, and authorization
 from flask import Blueprint, request, jsonify
 from app.models import db, Product, User, token_required
 

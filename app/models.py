@@ -2,7 +2,7 @@
 # Handles database logic
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import jwt
 from flask import current_app, request, jsonify
 from functools import wraps
@@ -23,7 +23,10 @@ class User(db.Model):
 
     def generate_token(self):
         token = jwt.encode(
-            {'user_id': self.id, 'exp': datetime.utcnow() + timedelta(hours=24)},
+            {
+                'user_id': self.id, 
+                'exp': datetime.now(timezone.utc) + timedelta(hours=24)
+            },
             current_app.config['SECRET_KEY'],
             algorithm='HS256'
         )
@@ -59,7 +62,7 @@ def token_required(f):
 
 def init_db():
     db.create_all()
-    
+    # initializes sample entries if the database is empty
     if Product.query.count() == 0:
         sample_products = [
             {

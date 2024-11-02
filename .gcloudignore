@@ -28,3 +28,6 @@ instance/
 env/
 venv/
 
+#MD files
+.md
+

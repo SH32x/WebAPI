@@ -127,12 +127,22 @@ footer {
     gap: 15px;
 }
 
+.login-container label {
+    display: inline-block;
+    width: 100px;  
+    text-align: right;
+    margin-right: 10px;  
+}
+
 .login-container input[type="text"],
 .login-container input[type="password"] {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 100%;
+    width: 60%;  
+    display: inline-block;
+}
+
+.login-container form > div {
+    display: flex;
+    align-items: center;
 }
 
 .login-container input[type="submit"] {
